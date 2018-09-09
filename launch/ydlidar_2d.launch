@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<launch>
+  <node
+     name="horizontal_laser"
+     pkg="ydlidar"
+     type="ydlidar_node"
+     output="screen">
+     <param name="frame_id"         type="string" value="horizontal_laser_link"/>
+
+  </node>
+  <node
+      pkg="tf"
+      type="static_transform_publisher"
+      name="laser_link_connect"
+      args="0 0 0 0 0 0 /horizontal_laser_link /scan 100"
+      />
+
+  <node
+      pkg="tf"
+      type="static_transform_publisher"
+      name="base_link_connect"
+      args="0 0 0 0 0 0 /base_link /horizontal_laser_link 100"
+      />
+
+  <node
+      name="cartographer_occupancy_grid_node"
+      pkg="cartographer_ros"
+      type="cartographer_occupancy_grid_node"
+      args="-resolution 0.05"
+  />
+  <node
+      name="cartographer_node"
+      pkg="cartographer_ros"
+      type="cartographer_node"
+      args="-configuration_directory $(find cartographer_ydlidar)/configuration_files -configuration_basename ydlidar_2d.lua"
+      output="screen">
+  </node>
+	  <node
+      name="rviz"
+      pkg="rviz"
+      type="rviz"
+      required="true"
+      args="-d $(find cartographer_ros)/configuration_files/demo_2d.rviz"
+  />
+</launch>
