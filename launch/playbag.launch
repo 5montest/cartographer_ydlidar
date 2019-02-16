@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<launch>
+    <node
+        name="rviz"
+        pkg="rviz"
+        type="rviz"
+        required="true"
+        args="-d $(find cartographer_ydlidar)/configuration_files/playbag.rviz"
+        />
+    <node
+        name="playbag"
+        pkg="rosbag"
+        type="play"
+        args="--clock $(arg bag_filename)"/>
+</launch>
