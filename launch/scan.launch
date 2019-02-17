@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<launch>
+  <node
+     name="horizontal_laser"
+     pkg="ydlidar"
+     type="ydlidar_node"
+     output="screen">
+ </node>
+ <!--node
+     name="record_bag"
+     pkg="rosbag"
+     type="record"
+     args="-a -o $(find cartographer_ydlidar)/bags/"/-->
+</launch>
